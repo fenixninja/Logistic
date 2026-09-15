@@ -165,7 +165,31 @@ Al pulsar el botón **«CERTIFICAR RECEPCIÓN»**:
 
 ---
 
-## 8. Guía de Ejecución Local
+## 8. Sistema de Internacionalización (i18n)
+
+La plataforma cuenta con un motor nativo de internacionalización en JavaScript con soporte para **7 idiomas**:
+
+| Código | Idioma | Bandera | Detección Automática |
+| :--- | :--- | :---: | :--- |
+| `es` | Español | 🇪🇸 | Idioma por defecto / fallback |
+| `en` | English | 🇺🇸 | Soportado |
+| `de` | Deutsch | 🇩🇪 | Soportado |
+| `fr` | Français | 🇫🇷 | Soportado |
+| `hi` | हिन्दी | 🇮🇳 | Soportado |
+| `zh` | 中文 | 🇨🇳 | Soportado |
+| `ja` | 日本語 | 🇯🇵 | Soportado |
+
+### Funcionamiento:
+1. **Detección del Navegador:** Al cargar, la aplicación inspecciona los parámetros de la URL (`?lang=`), la preferencia almacenada en `localStorage` (`logistic_preferred_lang`) y las cabeceras `navigator.languages` o `navigator.language`.
+2. **Selector en la Cabecera:** Situado en la zona superior derecha del menú, permite cambiar el idioma al instante sin recargar la página.
+3. **Traducción Reactiva Integral:**
+   - Textos estructurales mediante atributos `data-i18n`.
+   - Mensajes dinámicos del escáner (estados del notch, lectura láser, hash criptográfico SHA-256).
+   - Sellos y estados de las cajas de paquetería kraft.
+
+---
+
+## 9. Guía de Ejecución Local
 
 Para visualizar y probar la aplicación en tu entorno local:
 
@@ -177,4 +201,9 @@ Para visualizar y probar la aplicación en tu entorno local:
 3. Abre tu navegador preferido y accede a:
    ```
    http://localhost:8080/index.html
+   ```
+   O prueba directamente con un idioma específico:
+   ```
+   http://localhost:8080/index.html?lang=en
+   http://localhost:8080/index.html?lang=ja
    ```
