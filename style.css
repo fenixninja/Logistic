@@ -349,7 +349,7 @@ h1, h2, h3, h4 {
   margin: 0 auto;
   padding: 30px 28px 40px 28px;
   display: grid;
-  grid-template-columns: 330px 36px 1fr;
+  grid-template-columns: 330px 90px 1fr;
   gap: 0;
   align-items: start;
 }
@@ -364,7 +364,7 @@ h1, h2, h3, h4 {
 }
 
 .col-packages {
-  padding-left: 14px;
+  padding-left: 0;
 }
 
 .col-header {
