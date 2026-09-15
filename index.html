@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsAuth Logistic | Terminal de Escaneo y Reparto</title>
+  <meta name="description" content="Plataforma de última milla con terminal móvil de escaneo y selección de paquetería geolocalizada.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- ========================================================
+       FONDO DE VÍDEO EN BUCLE (LOGÍSTICA Y TRANSPORTE)
+       ======================================================== -->
+  <div class="video-bg-container" aria-hidden="true" role="none">
+    <video id="bg-video-player" class="bg-video" muted playsinline autoplay loop preload="auto">
+      <source src="video/Delivery_man_walking_city_street_20260915195750.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+    <div class="video-grid-pattern"></div>
+  </div>
+
+  <!-- ========================================================
+       MENÚ SUPERIOR (CABECERA BRAND)
+       ======================================================== -->
+  <header class="main-header">
+    <div class="header-container">
+      <!-- Logo a la izquierda -->
+      <a href="#" class="header-brand" aria-label="Inicio WhatsAuth Logistic">
+        <img src="img/logo.png" alt="WhatsAuth Logistic Logo" class="brand-logo-img">
+        <span class="brand-subtag">LOGISTIC TERMINAL</span>
+      </a>
+
+      <!-- Navegación central -->
+      <nav class="header-nav" aria-label="Navegación principal">
+        <a href="#section-scan" class="nav-item active">
+          <span class="nav-dot"></span>
+          <span>Escanear</span>
+        </a>
+        <a href="#section-packages" class="nav-item">
+          <span>Paquetes en Ruta</span>
+          <span class="nav-pill" id="total-pkgs-pill">6</span>
+        </a>
+        <a href="#" class="nav-item">
+          <span>Hoja de Reparto</span>
+        </a>
+        <a href="#" class="nav-item">
+          <span>Historial</span>
+        </a>
+      </nav>
+
+      <!-- Acciones a la derecha -->
+      <div class="header-actions">
+        <div class="system-badge" title="Conexión satelital y pericial activa">
+          <span class="status-live-dot"></span>
+          <span class="status-label">EN LÍNEA • GPS ACTIVO</span>
+        </div>
+        <button class="btn btn-orange btn-sm" id="btn-sync-route">
+          <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor">
+            <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/>
+          </svg>
+          <span>Sincronizar Ruta</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================
+       DISPOSICIÓN PRINCIPAL DEL BODY
+       Izquierda: SECCIÓN SCAN | Derecha: SELECCIONAR PAQUETE
+       ======================================================== -->
+  <main class="workspace-layout">
+
+    <!-- ----------------------------------------------------
+         SECCIÓN SCAN (COLUMNA IZQUIERDA)
+         ---------------------------------------------------- -->
+    <section class="workspace-col col-scan" id="section-scan">
+      <div class="col-header">
+        <div class="kicker-wrap">
+          <span class="section-kicker">TERMINAL MÓVIL</span>
+          <span class="kicker-badge">WhatsAuth POD v2.4</span>
+        </div>
+        <h1 class="col-title">SECCIÓN SCAN</h1>
+        <p class="col-desc">Apunta o selecciona un bulto para verificar el precinto biométrico y geocercado del destinatario.</p>
+      </div>
+
+      <!-- ESCENA DEL IPHONE MOCKUP -->
+      <div class="scene">
+        <div class="phone-con">
+          <div class="phone">
+            <!-- Botones físicos exteriores -->
+            <div class="buttons">
+              <div class="left">
+                <div class="button"></div>
+                <div class="button"></div>
+                <div class="button"></div>
+              </div>
+              <div class="right">
+                <div class="button"></div>
+              </div>
+            </div>
+
+            <!-- Cámara frontal -->
+            <div class="camera"></div>
+
+            <!-- Contenedor de Pantalla -->
+            <div class="screen-container">
+              <!-- Fondo del interior del teléfono: imagen FNX_logo.jpeg -->
+              <div class="bg fnx-screen-bg" style="background-image: url('img/FNX_logo.jpeg');">
+                <!-- Capa holográfica de escaneo superpuesta -->
+                <div class="scan-hud-layer">
+                  <div class="scan-crosshair-box">
+                    <div class="corner corner-tl"></div>
+                    <div class="corner corner-tr"></div>
+                    <div class="corner corner-bl"></div>
+                    <div class="corner corner-br"></div>
+                    <!-- Línea láser de escaneo -->
+                    <div class="laser-scanner-beam" id="laser-beam"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Dynamic Island / Notch interactivo -->
+              <div class="notch-container" tabindex="0">
+                <div class="notch">
+                  <div class="content">
+                    <div class="left">
+                      <div class="tile">
+                        <img src="img/logo.png" alt="Logo mini" class="notch-logo-thumb">
+                      </div>
+                      <div class="text">
+                        <span class="notch-title" id="notch-status-text">ESCANER ACTIVO</span>
+                        <span class="notch-sub" id="notch-pkg-label">Listo para enfocar</span>
+                      </div>
+                    </div>
+                    <div class="right">
+                      <span class="notch-indicator-pulse"></span>
+                    </div>
+                    <div class="bar">
+                      <div class="duration"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="notch-blur"></div>
+
+              <!-- Pantalla interactiva con datos del paquete enfocado -->
+              <div class="screen phone-interactive-ui">
+                <div class="terminal-status-header">
+                  <div class="operator-meta">
+                    <span class="font-mono">TERMINAL: ES-FNX-01</span>
+                    <span class="status-chip active">GPS 100%</span>
+                  </div>
+                </div>
+
+                <!-- Tarjeta dinámica de lectura del paquete enfocado -->
+                <div class="scanned-package-card" id="scanned-package-card">
+                  <div class="pkg-card-top">
+                    <span class="badge-active-target" id="hud-pkg-badge">PAQUETE ENFOCADO</span>
+                    <span class="pkg-id-chip font-mono" id="hud-pkg-id">ES-MAD-8921</span>
+                  </div>
+                  <div class="pkg-details-body">
+                    <div class="hud-data-row">
+                      <span class="hud-label">Destinatario:</span>
+                      <span class="hud-val" id="hud-pkg-name">Elena Morales</span>
+                    </div>
+                    <div class="hud-data-row">
+                      <span class="hud-label">Dirección:</span>
+                      <span class="hud-val" id="hud-pkg-address">C/ Velázquez 45, Madrid</span>
+                    </div>
+                    <div class="hud-data-row">
+                      <span class="hud-label">Peso / Tipo:</span>
+                      <span class="hud-val font-mono" id="hud-pkg-weight">1.8 kg • Frágil</span>
+                    </div>
+                    <div class="hud-data-row">
+                      <span class="hud-label">Geocerca:</span>
+                      <span class="hud-val text-success" id="hud-pkg-geo">En rango (Δ 2.4 m)</span>
+                    </div>
+                  </div>
+
+                  <!-- Botón de certificar recepción en brand orange -->
+                  <div class="hud-actions">
+                    <button class="btn btn-orange btn-full btn-scan-action" id="btn-certify-delivery">
+                      <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                      </svg>
+                      <span id="btn-certify-label">CERTIFICAR RECEPCIÓN</span>
+                    </button>
+                    <div class="hud-hash-preview font-mono" id="hud-hash-display">SHA-256: 9d3f8a42e5b7...</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------
+         HUECO / SEPARADOR CENTRAL
+         ---------------------------------------------------- -->
+    <div class="workspace-divider" aria-hidden="true">
+      <div class="divider-line"></div>
+      <div class="divider-badge" title="Sincronización en tiempo real">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 16V4M7 4L3 8M7 4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/>
+        </svg>
+      </div>
+      <div class="divider-line"></div>
+    </div>
+
+    <!-- ----------------------------------------------------
+         SECCIÓN SELECCIONAR PAQUETE (COLUMNA DERECHA)
+         6 paquetes de cartón: 3 arriba y 3 abajo en escritorio
+         ---------------------------------------------------- -->
+    <section class="workspace-col col-packages" id="section-packages">
+      <div class="col-header">
+        <div class="kicker-wrap">
+          <span class="section-kicker">LOGÍSTICA DE CARGA</span>
+          <span class="kicker-badge count-badge">6 BULTOS EN RUTA</span>
+        </div>
+        <h2 class="col-title">SELECCIONAR PAQUETE</h2>
+        <p class="col-desc">Haz clic en una caja de cartón para enfocarla en el visor del iPhone y procesar su entrega verificada.</p>
+      </div>
+
+      <!-- REJILLA DE 6 CAJAS DE CARTÓN (3 ARRIBA, 3 ABAJO EN ESCRITORIO) -->
+      <div class="cardboard-packages-grid">
+
+        <!-- Paquete 1 (Activo por defecto) -->
+        <article class="cardboard-box active" data-pkg-id="ES-MAD-8921" data-name="Elena Morales" data-address="C/ Velázquez 45, Madrid" data-weight="1.8 kg • Frágil" data-type="Electrónica" tabindex="0">
+          <div class="box-top-tape">
+            <span class="tape-text">SECURITY SEAL • WHATSAUTH</span>
+          </div>
+          <div class="box-body">
+            <div class="box-label-sticker">
+              <div class="label-header">
+                <span class="label-carrier">EXPRESS COURIER</span>
+                <span class="label-class font-mono">PRIORITY 24H</span>
+              </div>
+              <div class="barcode-graphic"></div>
+              <div class="pkg-code font-mono">ES-MAD-8921</div>
+              <div class="pkg-dest-info">
+                <strong>Elena Morales</strong>
+                <span>C/ Velázquez 45</span>
+              </div>
+            </div>
+            <div class="box-stamps">
+              <span class="stamp fragile" title="Mercancía Frágil">FRÁGIL</span>
+              <span class="stamp weight font-mono">1.8 KG</span>
+            </div>
+          </div>
+          <div class="box-footer-meta">
+            <span class="box-indicator-status">● Enfocado en Escáner</span>
+            <span class="box-action-hint">Seleccionado</span>
+          </div>
+        </article>
+
+        <!-- Paquete 2 -->
+        <article class="cardboard-box" data-pkg-id="ES-MAD-8922" data-name="Marcos Soler" data-address="C/ Gran Vía 32, 4º B" data-weight="2.4 kg • Estándar" data-type="Moda & Textil" tabindex="0">
+          <div class="box-top-tape">
+            <span class="tape-text">SECURITY SEAL • WHATSAUTH</span>
+          </div>
+          <div class="box-body">
+            <div class="box-label-sticker">
+              <div class="label-header">
+                <span class="label-carrier">EXPRESS COURIER</span>
+                <span class="label-class font-mono">ECO-DELIVERY</span>
+              </div>
+              <div class="barcode-graphic"></div>
+              <div class="pkg-code font-mono">ES-MAD-8922</div>
+              <div class="pkg-dest-info">
+                <strong>Marcos Soler</strong>
+                <span>C/ Gran Vía 32</span>
+              </div>
+            </div>
+            <div class="box-stamps">
+              <span class="stamp standard">URGENTE</span>
+              <span class="stamp weight font-mono">2.4 KG</span>
+            </div>
+          </div>
+          <div class="box-footer-meta">
+            <span class="box-indicator-status pending">○ En espera</span>
+            <span class="box-action-hint">Clic para escanear</span>
+          </div>
+        </article>
+
+        <!-- Paquete 3 -->
+        <article class="cardboard-box" data-pkg-id="ES-MAD-8923" data-name="Laura Méndez" data-address="Paseo de la Castellana 110" data-weight="0.8 kg • Documentos" data-type="Valija Notarial" tabindex="0">
+          <div class="box-top-tape">
+            <span class="tape-text">SECURITY SEAL • WHATSAUTH</span>
+          </div>
+          <div class="box-body">
+            <div class="box-label-sticker">
+              <div class="label-header">
+                <span class="label-carrier">EXPRESS COURIER</span>
+                <span class="label-class font-mono">CONFIDENTIAL</span>
+              </div>
+              <div class="barcode-graphic"></div>
+              <div class="pkg-code font-mono">ES-MAD-8923</div>
+              <div class="pkg-dest-info">
+                <strong>Laura Méndez</strong>
+                <span>Pº Castellana 110</span>
+              </div>
+            </div>
+            <div class="box-stamps">
+              <span class="stamp security">CUSTODIA</span>
+              <span class="stamp weight font-mono">0.8 KG</span>
+            </div>
+          </div>
+          <div class="box-footer-meta">
+            <span class="box-indicator-status pending">○ En espera</span>
+            <span class="box-action-hint">Clic para escanear</span>
+          </div>
+        </article>
+
+        <!-- Paquete 4 -->
+        <article class="cardboard-box" data-pkg-id="ES-MAD-8924" data-name="David Rivas" data-address="C/ Serrano 48, Local 2" data-weight="3.5 kg • Informática" data-type="Hardware TI" tabindex="0">
+          <div class="box-top-tape">
+            <span class="tape-text">SECURITY SEAL • WHATSAUTH</span>
+          </div>
+          <div class="box-body">
+            <div class="box-label-sticker">
+              <div class="label-header">
+                <span class="label-carrier">EXPRESS COURIER</span>
+                <span class="label-class font-mono">PRIORITY 24H</span>
+              </div>
+              <div class="barcode-graphic"></div>
+              <div class="pkg-code font-mono">ES-MAD-8924</div>
+              <div class="pkg-dest-info">
+                <strong>David Rivas</strong>
+                <span>C/ Serrano 48</span>
+              </div>
+            </div>
+            <div class="box-stamps">
+              <span class="stamp fragile">FRÁGIL</span>
+              <span class="stamp weight font-mono">3.5 KG</span>
+            </div>
+          </div>
+          <div class="box-footer-meta">
+            <span class="box-indicator-status pending">○ En espera</span>
+            <span class="box-action-hint">Clic para escanear</span>
+          </div>
+        </article>
+
+        <!-- Paquete 5 -->
+        <article class="cardboard-box" data-pkg-id="ES-MAD-8925" data-name="Javier Gil" data-address="C/ Alcalá 142, Planta 3" data-weight="4.2 kg • Repuestos" data-type="Automoción" tabindex="0">
+          <div class="box-top-tape">
+            <span class="tape-text">SECURITY SEAL • WHATSAUTH</span>
+          </div>
+          <div class="box-body">
+            <div class="box-label-sticker">
+              <div class="label-header">
+                <span class="label-carrier">EXPRESS COURIER</span>
+                <span class="label-class font-mono">HEAVY PARCEL</span>
+              </div>
+              <div class="barcode-graphic"></div>
+              <div class="pkg-code font-mono">ES-MAD-8925</div>
+              <div class="pkg-dest-info">
+                <strong>Javier Gil</strong>
+                <span>C/ Alcalá 142</span>
+              </div>
+            </div>
+            <div class="box-stamps">
+              <span class="stamp heavy">PESADO</span>
+              <span class="stamp weight font-mono">4.2 KG</span>
+            </div>
+          </div>
+          <div class="box-footer-meta">
+            <span class="box-indicator-status pending">○ En espera</span>
+            <span class="box-action-hint">Clic para escanear</span>
+          </div>
+        </article>
+
+        <!-- Paquete 6 -->
+        <article class="cardboard-box" data-pkg-id="ES-MAD-8926" data-name="Sofía Varela" data-address="C/ Goya 67, 1º Dcha" data-weight="1.1 kg • Farmacia" data-type="Sanitario" tabindex="0">
+          <div class="box-top-tape">
+            <span class="tape-text">SECURITY SEAL • WHATSAUTH</span>
+          </div>
+          <div class="box-body">
+            <div class="box-label-sticker">
+              <div class="label-header">
+                <span class="label-carrier">EXPRESS COURIER</span>
+                <span class="label-class font-mono">COLD CHAIN</span>
+              </div>
+              <div class="barcode-graphic"></div>
+              <div class="pkg-code font-mono">ES-MAD-8926</div>
+              <div class="pkg-dest-info">
+                <strong>Sofía Varela</strong>
+                <span>C/ Goya 67</span>
+              </div>
+            </div>
+            <div class="box-stamps">
+              <span class="stamp medical">CONTROL</span>
+              <span class="stamp weight font-mono">1.1 KG</span>
+            </div>
+          </div>
+          <div class="box-footer-meta">
+            <span class="box-indicator-status pending">○ En espera</span>
+            <span class="box-action-hint">Clic para escanear</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================
+       PIE DE PÁGINA SIMPLE Y CORPORATIVO
+       ======================================================== -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <span class="font-mono">WhatsAuth Logistic Platform &bull; Protocolo eIDAS & Art. 326 LEC</span>
+      </div>
+      <div class="footer-right">
+        <span>Paleta: Core Blue (#1F4594) &bull; Delivery Orange (#FE6C27) &bull; Pure White</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="index.js"></script>
+</body>
+</html>

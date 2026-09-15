@@ -1,0 +1,1199 @@
+/* ========================================================
+   WHATSAUTH LOGISTIC - STYLESHEET
+   Brand Colors: Core Blue (#1F4594), Delivery Orange (#FE6C27), Pure White (#FFFFFF)
+   Layout: Two columns (SCAN with iPhone on left, SELECCIONAR PAQUETE 3x2 on right)
+   ======================================================== */
+
+:root {
+  /* Brand Identity (from style/brand.md) */
+  --brand-core-blue: #1F4594;
+  --brand-core-blue-rgb: 31, 69, 148;
+  --brand-core-blue-dark: #122c66;
+  --brand-core-blue-light: #2b5bc4;
+
+  --brand-delivery-orange: #FE6C27;
+  --brand-delivery-orange-rgb: 254, 108, 39;
+  --brand-delivery-orange-hover: #ff7d3d;
+
+  --brand-pure-white: #FFFFFF;
+  --brand-pure-white-rgb: 255, 255, 255;
+
+  /* Neutrals & Surfaces */
+  --bg-dark: #070d1c;
+  --bg-surface: rgba(14, 27, 61, 0.75);
+  --bg-card: rgba(18, 34, 76, 0.85);
+  --border-glass: rgba(255, 255, 255, 0.12);
+  --border-glass-bright: rgba(255, 255, 255, 0.22);
+  --text-muted: #9bb0dc;
+
+  /* Typography */
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* iPhone System Variables (from provided spec) */
+  --size: clamp(5.2px, 0.72vmin, 8.5px);
+  --height: 76em;
+  --pad: 1.25em;
+  --border-radius: 6.666em;
+  --gutter: calc(var(--pad) * 2);
+  --scene-pad: 1.5vmin;
+  --bg-blur: 0.333em;
+  --button-width: 0.333em;
+  --notch-height: 3.33em;
+  --notch-width: 33.3%;
+  --notch-radius: calc(var(--border-radius) - calc(var(--pad) * 2));
+  --notch-duration: 0.333s;
+
+  --ease: cubic-bezier(0.666, 0, 0.4, 1);
+  --ease-spring: cubic-bezier(0.666, 0, 0.4, 1.2);
+  --ease-out: cubic-bezier(0.15, 0, 0.333, 1);
+  --border-width: 0.4em;
+
+  --c-h: 220;
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-dark);
+  color: var(--brand-pure-white);
+  line-height: 1.5;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Typography Utilities */
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--brand-pure-white);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.text-orange { color: var(--brand-delivery-orange) !important; }
+.text-blue { color: var(--brand-core-blue-light) !important; }
+.text-success { color: #10b981 !important; }
+.text-muted { color: var(--text-muted) !important; }
+
+/* ========================================================
+   FONDO DE VÍDEO EN BUCLE
+   ======================================================== */
+.video-bg-container {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 1s ease;
+}
+
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(14, 27, 61, 0.72) 0%, rgba(7, 13, 28, 0.88) 70%, rgba(4, 7, 16, 0.96) 100%);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.video-grid-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to right, rgba(31, 69, 148, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(31, 69, 148, 0.08) 1px, transparent 1px);
+  background-size: 36px 36px;
+  opacity: 0.5;
+}
+
+/* ========================================================
+   MENÚ SUPERIOR (CABECERA BRAND)
+   ======================================================== */
+.main-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(10, 20, 48, 0.82);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border-glass);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.header-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 12px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+}
+
+.brand-logo-img {
+  height: 42px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(31, 69, 148, 0.5));
+}
+
+.brand-subtag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(254, 108, 39, 0.15);
+  color: var(--brand-delivery-orange);
+  border: 1px solid rgba(254, 108, 39, 0.35);
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.06em;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+  color: var(--brand-pure-white);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-item.active {
+  color: var(--brand-pure-white);
+  background: rgba(31, 69, 148, 0.35);
+  border: 1px solid rgba(31, 69, 148, 0.6);
+}
+
+.nav-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-delivery-orange);
+  box-shadow: 0 0 8px var(--brand-delivery-orange);
+}
+
+.nav-pill {
+  background: var(--brand-delivery-orange);
+  color: var(--brand-pure-white);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.system-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+
+.status-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* Botones */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 13.5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid transparent;
+}
+
+.btn-orange {
+  background: var(--brand-delivery-orange);
+  color: var(--brand-pure-white);
+  box-shadow: 0 6px 20px rgba(254, 108, 39, 0.4);
+}
+
+.btn-orange:hover {
+  background: var(--brand-delivery-orange-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(254, 108, 39, 0.6);
+}
+
+.btn-sm {
+  padding: 7px 14px;
+  font-size: 12.5px;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+/* ========================================================
+   DISPOSICIÓN PRINCIPAL DEL WORKSPACE (BODY)
+   ======================================================== */
+.workspace-layout {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 30px 28px 60px 28px;
+  display: grid;
+  grid-template-columns: 460px 32px 1fr;
+  gap: 0;
+  align-items: start;
+}
+
+.workspace-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.col-header {
+  margin-bottom: 22px;
+}
+
+.kicker-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.section-kicker {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--brand-delivery-orange);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.kicker-badge {
+  background: rgba(31, 69, 148, 0.35);
+  color: #9bb0dc;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(31, 69, 148, 0.5);
+}
+
+.count-badge {
+  background: rgba(254, 108, 39, 0.15);
+  color: var(--brand-delivery-orange);
+  border-color: rgba(254, 108, 39, 0.35);
+}
+
+.col-title {
+  font-size: 26px;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+
+.col-desc {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  max-width: 540px;
+}
+
+/* HUECO / SEPARADOR CENTRAL */
+.workspace-divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 500px;
+  padding: 0 6px;
+}
+
+.divider-line {
+  flex: 1;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, rgba(31, 69, 148, 0.5) 20%, rgba(254, 108, 39, 0.5) 80%, transparent);
+}
+
+.divider-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(14, 27, 61, 0.9);
+  border: 1px solid rgba(254, 108, 39, 0.4);
+  color: var(--brand-delivery-orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 16px 0;
+  box-shadow: 0 0 16px rgba(254, 108, 39, 0.25);
+  animation: pulse-divider 3s infinite;
+}
+
+@keyframes pulse-divider {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); box-shadow: 0 0 20px rgba(254, 108, 39, 0.5); }
+}
+
+/* ========================================================
+   ESCENA DEL IPHONE (CÓDIGO INTEGRADO Y ADAPTADO)
+   ======================================================== */
+.scene {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-size: var(--size);
+  box-sizing: border-box;
+}
+
+.phone-con {
+  flex-basis: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.phone {
+  position: relative;
+  z-index: 1;
+  aspect-ratio: 37/76;
+  background: black;
+  height: var(--height);
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 0.1em 0.25em hsl(var(--c-h), 20%, 25%),
+              0 0 0 var(--border-width) hsl(var(--c-h), 30%, 85%),
+              0 24px 60px rgba(0, 0, 0, 0.85);
+  box-sizing: border-box;
+  opacity: 1;
+  transform: translateZ(0);
+}
+
+.phone::before {
+  content: "";
+  position: absolute;
+  top: var(--border-radius);
+  right: calc(var(--border-width) * -1);
+  bottom: var(--border-radius);
+  left: calc(var(--border-width) * -1);
+  border: 0.5em solid hsl(var(--c-h), 20%, 30%);
+  border-left-width: 0;
+  border-right-width: 0;
+}
+
+/* Botones laterales */
+.buttons {
+  position: absolute;
+  inset: calc(var(--border-width) * -1);
+  pointer-events: none;
+}
+
+.buttons .left,
+.buttons .right {
+  position: absolute;
+  width: var(--button-width);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1.5em;
+}
+
+.buttons .left {
+  right: 100%;
+  top: calc(var(--border-radius) * 2);
+}
+
+.buttons .left .button:nth-child(1) {
+  height: 3em;
+  margin-bottom: 0.5em;
+}
+
+.buttons .right {
+  left: 100%;
+  transform: scale3d(-1, 1, 1);
+  top: calc(var(--border-radius) * 3);
+}
+
+.buttons .right .button {
+  height: 9.5em;
+}
+
+.buttons .button {
+  background: hsl(var(--c-h), 20%, 95%);
+  height: 6em;
+  box-shadow: inset -0.15em 0 0.1em black,
+              inset 0 0 0.1em hsl(var(--c-h), 30%, 90%),
+              inset 0 0.2em 0.1em hsl(var(--c-h), 30%, 90%),
+              inset 0 -0.2em 0.1em hsl(var(--c-h), 30%, 90%),
+              inset -0.1em 0.333em 0.1em rgba(0, 0, 0, 0.5),
+              inset -0.1em -0.333em 0.1em rgba(0, 0, 0, 0.5);
+  border-top-left-radius: 0.2em;
+  border-bottom-left-radius: 0.2em;
+}
+
+/* Pantalla del iPhone */
+.screen-container {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--border-radius);
+  border: var(--pad) solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--pad) * 2);
+  overflow: hidden;
+}
+
+/* Barra inferior Home */
+.screen-container::before {
+  content: "";
+  position: absolute;
+  z-index: 10;
+  background: white;
+  width: 36.6%;
+  bottom: calc(var(--pad) * 0.75);
+  height: calc(var(--pad) * 0.5);
+  border-radius: calc(var(--pad) * 0.25);
+  filter: drop-shadow(0 0.1em 0.25em rgba(0, 0, 0, 0.3));
+}
+
+/* Fondo de la pantalla con la imagen solicitada: FNX_logo.jpeg */
+.fnx-screen-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: calc(var(--border-radius) - var(--pad));
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Capa y retícula láser de escaneo en la pantalla */
+.scan-hud-layer {
+  position: absolute;
+  inset: 0;
+  background: rgba(7, 13, 28, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.scan-crosshair-box {
+  width: 82%;
+  height: 55%;
+  position: relative;
+  margin-top: -10em;
+}
+
+.corner {
+  position: absolute;
+  width: 2.2em;
+  height: 2.2em;
+  border: 0.4em solid var(--brand-delivery-orange);
+}
+
+.corner-tl { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+.corner-tr { top: 0; right: 0; border-left: 0; border-bottom: 0; }
+.corner-bl { bottom: 0; left: 0; border-right: 0; border-top: 0; }
+.corner-br { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+
+.laser-scanner-beam {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0.35em;
+  background: var(--brand-delivery-orange);
+  box-shadow: 0 0 1.2em var(--brand-delivery-orange), 0 0 2.4em rgba(254, 108, 39, 0.8);
+  top: 0%;
+  animation: scan-move 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes scan-move {
+  0% { top: 2%; opacity: 0.8; }
+  100% { top: 96%; opacity: 1; }
+}
+
+/* Cámara frontal */
+.camera {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: var(--notch-height);
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  pointer-events: none;
+  position: absolute;
+  z-index: 20;
+  top: calc(var(--pad) * 2);
+  right: calc(50% - calc(var(--notch-width) * 0.5));
+  margin-right: calc(var(--pad) * 0.333);
+}
+
+.camera::before {
+  content: "";
+  height: 33.3%;
+  aspect-ratio: 1;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0.25em #4c4da3;
+  background: radial-gradient(#6667ac, transparent 50%) no-repeat 33.3% 10% / 75% 50%,
+              radial-gradient(#2d2e66, transparent 50%) no-repeat 60% 85% / 50% 50%;
+  background-color: #080928;
+}
+
+/* DYNAMIC ISLAND / NOTCH INTERACTIVO */
+.notch-container {
+  position: absolute;
+  z-index: 15;
+  top: var(--pad);
+  right: var(--pad);
+  left: var(--pad);
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  max-height: calc(var(--notch-radius) * 2);
+  pointer-events: none;
+  outline: none;
+  transition: var(--notch-duration) var(--ease);
+  transition-property: max-height, max-width, filter, transform;
+  will-change: max-width, max-height, filter;
+}
+
+.is-resizing .notch-container,
+.is-resizing .notch-container * {
+  transition: none !important;
+}
+
+.notch-container:hover,
+.notch-container:focus-within {
+  transition-timing-function: var(--ease-spring);
+}
+
+.notch-container:hover .notch,
+.notch-container:focus-within .notch {
+  max-width: 100%;
+  max-height: 100%;
+  pointer-events: all;
+  transform: scale3d(1, 1, 1);
+}
+
+.notch {
+  position: relative;
+  border-radius: var(--notch-radius);
+  pointer-events: all;
+  overflow: hidden;
+  color: white;
+  display: flex;
+  cursor: pointer;
+  width: 100%;
+  filter: drop-shadow(0 1em 2em rgba(0, 0, 0, 0.6));
+  transform: scale3d(0.375, 0.4, 1);
+  transform-origin: top;
+  transition: inherit;
+  transition-property: inherit;
+}
+
+.notch::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #000000;
+  border-radius: inherit;
+}
+
+.notch-blur {
+  position: absolute;
+  z-index: 14;
+  top: calc(var(--pad) - 3px);
+  right: calc(var(--pad) - 3px);
+  left: calc(var(--pad) - 3px);
+  height: 100%;
+  max-height: calc(var(--notch-radius) * 1.5);
+  backdrop-filter: blur(0.2em);
+  opacity: 0;
+  border-radius: calc(var(--border-radius) - var(--pad));
+  transition: var(--notch-duration) var(--ease);
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.6em 2em;
+  font-size: 110%;
+  position: relative;
+  z-index: 2;
+}
+
+.content .left {
+  display: flex;
+  align-items: center;
+  gap: 1.2em;
+}
+
+.content .tile {
+  width: 3.2em;
+  height: 3.2em;
+  border-radius: 0.8em;
+  background: #1F4594;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4em;
+}
+
+.notch-logo-thumb {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.notch-title {
+  display: block;
+  font-size: 1.1em;
+  font-weight: 700;
+  color: var(--brand-pure-white);
+}
+
+.notch-sub {
+  display: block;
+  font-size: 0.85em;
+  color: var(--brand-delivery-orange);
+  font-family: var(--font-mono);
+}
+
+.notch-indicator-pulse {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  background: var(--brand-delivery-orange);
+  box-shadow: 0 0 1em var(--brand-delivery-orange);
+}
+
+/* Interfaz interactiva superpuesta en la pantalla del iPhone */
+.phone-interactive-ui {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2.2em;
+  box-sizing: border-box;
+  pointer-events: all;
+}
+
+.terminal-status-header {
+  position: absolute;
+  top: 6em;
+  left: 2em;
+  right: 2em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.operator-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 1.1em;
+  color: var(--text-muted);
+}
+
+.status-chip {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+  font-size: 0.9em;
+  padding: 0.2em 0.8em;
+  border-radius: 1em;
+  font-weight: 700;
+}
+
+.scanned-package-card {
+  background: rgba(14, 27, 61, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(254, 108, 39, 0.4);
+  border-radius: 1.8em;
+  padding: 1.8em;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
+  margin-bottom: 2em;
+}
+
+.pkg-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.badge-active-target {
+  font-size: 0.95em;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--brand-delivery-orange);
+}
+
+.pkg-id-chip {
+  font-size: 1.1em;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.2em 0.8em;
+  border-radius: 0.4em;
+  color: var(--brand-pure-white);
+}
+
+.pkg-details-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.8em 0;
+}
+
+.hud-data-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.1em;
+}
+
+.hud-label {
+  color: var(--text-muted);
+}
+
+.hud-val {
+  font-weight: 600;
+  color: var(--brand-pure-white);
+  text-align: right;
+}
+
+.hud-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
+}
+
+.btn-scan-action {
+  font-size: 1.25em;
+  padding: 0.9em 1.2em;
+  border-radius: 0.8em;
+  letter-spacing: 0.02em;
+}
+
+.hud-hash-preview {
+  font-size: 0.9em;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* ========================================================
+   SECCIÓN SELECCIONAR PAQUETE (6 CAJAS EN REJILLA 3x2)
+   ======================================================== */
+.cardboard-packages-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* Caja de cartón kraft realista */
+.cardboard-box {
+  position: relative;
+  background: linear-gradient(145deg, #d79e64 0%, #be8449 60%, #a46d37 100%);
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 220px;
+  box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.5),
+              inset 0 1px 0 rgba(255, 255, 255, 0.3),
+              inset 0 -2px 6px rgba(0, 0, 0, 0.3);
+  border: 2px solid transparent;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+/* Efecto de textura de cartón rugoso */
+.cardboard-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+  background-size: 8px 8px;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Cinta de embalar de seguridad */
+.box-top-tape {
+  position: relative;
+  z-index: 2;
+  background: rgba(254, 108, 39, 0.9);
+  padding: 5px 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.tape-text {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  display: block;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.box-body {
+  position: relative;
+  z-index: 2;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Etiqueta blanca de envío con código de barras */
+.box-label-sticker {
+  background: #ffffff;
+  color: #111827;
+  border-radius: 6px;
+  padding: 10px 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 4px;
+}
+
+.label-carrier {
+  font-size: 9px;
+  font-weight: 800;
+  color: var(--brand-core-blue);
+  letter-spacing: 0.05em;
+}
+
+.label-class {
+  font-size: 8.5px;
+  background: #1F4594;
+  color: #ffffff;
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+.barcode-graphic {
+  height: 22px;
+  background: repeating-linear-gradient(
+    90deg,
+    #111827 0,
+    #111827 2px,
+    transparent 2px,
+    transparent 4px,
+    #111827 4px,
+    #111827 7px,
+    transparent 7px,
+    transparent 9px,
+    #111827 9px,
+    #111827 12px,
+    transparent 12px,
+    transparent 13px
+  );
+  margin: 3px 0;
+  border-radius: 2px;
+}
+
+.pkg-code {
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.08em;
+  color: #1f2937;
+}
+
+.pkg-dest-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 11px;
+  line-height: 1.3;
+}
+
+.pkg-dest-info strong {
+  color: #111827;
+}
+
+.pkg-dest-info span {
+  color: #4b5563;
+}
+
+/* Sellos sobre el cartón */
+.box-stamps {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stamp {
+  font-family: var(--font-heading);
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1.5px dashed;
+  text-transform: uppercase;
+}
+
+.stamp.fragile {
+  color: #b91c1c;
+  border-color: #b91c1c;
+  background: rgba(185, 28, 28, 0.1);
+}
+
+.stamp.standard {
+  color: #1F4594;
+  border-color: #1F4594;
+  background: rgba(31, 69, 148, 0.1);
+}
+
+.stamp.security {
+  color: #047857;
+  border-color: #047857;
+  background: rgba(4, 120, 87, 0.1);
+}
+
+.stamp.heavy {
+  color: #b45309;
+  border-color: #b45309;
+  background: rgba(180, 83, 9, 0.1);
+}
+
+.stamp.medical {
+  color: #4338ca;
+  border-color: #4338ca;
+  background: rgba(67, 56, 202, 0.1);
+}
+
+.stamp.weight {
+  color: #374151;
+  border-color: #4b5563;
+  margin-left: auto;
+}
+
+/* Pie del paquete */
+.box-footer-meta {
+  position: relative;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 600;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.box-indicator-status {
+  color: #ffffff;
+}
+
+.box-indicator-status.pending {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.box-action-hint {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 10px;
+}
+
+/* ESTADO HOVER Y ACTIVO DEL PAQUETE */
+.cardboard-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.6),
+              0 0 0 2px rgba(254, 108, 39, 0.6);
+}
+
+.cardboard-box.active {
+  border-color: var(--brand-delivery-orange);
+  box-shadow: 0 0 0 3px var(--brand-delivery-orange),
+              0 20px 40px -10px rgba(254, 108, 39, 0.6);
+  transform: translateY(-6px);
+}
+
+.cardboard-box.active .box-footer-meta {
+  background: var(--brand-core-blue);
+  color: #ffffff;
+}
+
+.cardboard-box.active .box-indicator-status {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.cardboard-box.active .box-action-hint {
+  color: var(--brand-delivery-orange);
+  font-weight: 700;
+  background: #ffffff;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+/* ========================================================
+   PIE DE PÁGINA (FOOTER)
+   ======================================================== */
+.app-footer {
+  border-top: 1px solid var(--border-glass);
+  background: rgba(7, 13, 28, 0.9);
+  backdrop-filter: blur(14px);
+  padding: 18px 28px;
+  margin-top: 40px;
+}
+
+.footer-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ========================================================
+   RESPONSIVE DESIGN (MEDIA QUERIES)
+   ======================================================== */
+@media (max-width: 1200px) {
+  .cardboard-packages-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .workspace-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .workspace-divider {
+    display: none;
+  }
+
+  .col-scan {
+    order: 2; /* Sección SCAN abajo en móvil */
+  }
+
+  .col-packages {
+    order: 1; /* Sección Paquetes arriba en móvil */
+  }
+
+  .phone {
+    max-width: 380px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-nav {
+    display: none;
+  }
+
+  .header-container {
+    padding: 10px 16px;
+  }
+
+  .brand-subtag {
+    display: none;
+  }
+
+  .cardboard-packages-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .workspace-layout {
+    padding: 20px 16px 40px 16px;
+  }
+}
