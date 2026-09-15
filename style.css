@@ -916,7 +916,8 @@ h1, h2, h3, h4 {
 .cardboard-packages-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  column-gap: 20px;
+  row-gap: 36px;
 }
 
 /* Caja de cartón kraft realista */
