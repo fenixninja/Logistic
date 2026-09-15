@@ -60,7 +60,7 @@ const I18N = {
     box_status_pending: "○ En espera",
     box_hint_click: "Clic para escanear",
     footer_legal: "WhatsAuth Logistic Platform • Protocolo eIDAS & Art. 326 LEC",
-    footer_palette: "Paleta: Core Blue (#1F4594) • Delivery Orange (#FE6C27) • Pure White",
+    footer_author: "Autor:",
     // Cadenas dinámicas JS
     js_scanning: "ESCANEANDO...",
     js_focused_suffix: "enfocado",
@@ -111,7 +111,7 @@ const I18N = {
     box_status_pending: "○ Pending",
     box_hint_click: "Click to scan",
     footer_legal: "WhatsAuth Logistic Platform • eIDAS Protocol & Art. 326 LEC",
-    footer_palette: "Palette: Core Blue (#1F4594) • Delivery Orange (#FE6C27) • Pure White",
+    footer_author: "Author:",
     // Dynamic strings
     js_scanning: "SCANNING...",
     js_focused_suffix: "focused",
@@ -162,7 +162,7 @@ const I18N = {
     box_status_pending: "○ Ausstehend",
     box_hint_click: "Zum Scannen klicken",
     footer_legal: "WhatsAuth Logistik-Plattform • eIDAS-Protokoll & Art. 326 LEC",
-    footer_palette: "Palette: Core Blue (#1F4594) • Delivery Orange (#FE6C27) • Pure White",
+    footer_author: "Autor:",
     // Dynamic strings
     js_scanning: "WIRD GESCANNT...",
     js_focused_suffix: "fokussiert",
@@ -213,7 +213,7 @@ const I18N = {
     box_status_pending: "○ En attente",
     box_hint_click: "Cliquer pour scanner",
     footer_legal: "WhatsAuth Logistic Platform • Protocole eIDAS & Art. 326 LEC",
-    footer_palette: "Palette : Core Blue (#1F4594) • Delivery Orange (#FE6C27) • Pure White",
+    footer_author: "Auteur :",
     // Dynamic strings
     js_scanning: "NUMÉRISATION...",
     js_focused_suffix: "ciblé",
@@ -264,7 +264,7 @@ const I18N = {
     box_status_pending: "○ प्रतीक्षारत",
     box_hint_click: "स्कैन करने के लिए क्लिक करें",
     footer_legal: "WhatsAuth लॉजिस्टिक्स प्लेटफॉर्म • eIDAS प्रोटोकॉल और Art. 326 LEC",
-    footer_palette: "रंग पैलेट: कोर ब्लू (#1F4594) • डिलीवरी ऑरेंज (#FE6C27) • शुद्ध सफेद",
+    footer_author: "लेखक:",
     // Dynamic strings
     js_scanning: "स्कैन हो रहा है...",
     js_focused_suffix: "केंद्रित",
@@ -315,7 +315,7 @@ const I18N = {
     box_status_pending: "○ 待扫描",
     box_hint_click: "点击开始扫描",
     footer_legal: "WhatsAuth 物流平台 • eIDAS 法律证据标准 & Art. 326 LEC",
-    footer_palette: "品牌色板：核心蓝 (#1F4594) • 配送橙 (#FE6C27) • 纯白",
+    footer_author: "作者：",
     // Dynamic strings
     js_scanning: "正在光学扫描...",
     js_focused_suffix: "已对焦",
@@ -366,7 +366,7 @@ const I18N = {
     box_status_pending: "○ 待機中",
     box_hint_click: "クリックしてスキャン",
     footer_legal: "WhatsAuth 物流プラットフォーム • eIDASプロトコル & Art. 326 LEC",
-    footer_palette: "カラーパレット: コアブルー (#1F4594) • デリバリーオレンジ (#FE6C27) • ピュアホワイト",
+    footer_author: "作者:",
     // Dynamic strings
     js_scanning: "スキャン実行中...",
     js_focused_suffix: "にフォーカス",

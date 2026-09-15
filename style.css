@@ -1203,6 +1203,56 @@ h1, h2, h3, h4 {
   gap: 12px;
 }
 
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-author {
+  color: var(--text-muted);
+}
+
+.footer-author-link {
+  color: var(--brand-delivery-orange);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.footer-author-link:hover {
+  text-decoration: underline;
+  color: #ff8b52;
+}
+
+.footer-divider {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 14px;
+}
+
+.footer-github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-weight: 600;
+  font-size: 12px;
+  transition: all 0.25s ease;
+}
+
+.footer-github-link:hover {
+  color: var(--brand-pure-white);
+  background: rgba(254, 108, 39, 0.15);
+  border-color: rgba(254, 108, 39, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
 /* ========================================================
    RESPONSIVE DESIGN (MEDIA QUERIES)
    ======================================================== */
