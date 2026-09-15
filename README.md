@@ -2,6 +2,9 @@
 
 > **Confirmaciones logísticas innegables y geolocalizadas para e-commerce y reparto de última milla.**
 
+🚀 **DEMO EN VIVO:** Puedes probar la aplicación interactiva en directo en 👉 **[https://logistic.fenix.ninja](https://logistic.fenix.ninja)**
+
+[![Live Demo](https://img.shields.io/badge/Demo_en_Vivo-logistic.fenix.ninja-FE6C27?style=for-the-badge&logo=googlechrome&logoColor=white)](https://logistic.fenix.ninja)
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC_BY--NC_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 [![Status](https://img.shields.io/badge/Status-Active_Prototype-success.svg)](#)
 [![Brand](https://img.shields.io/badge/Brand-Core_Blue_%231F4594_%7C_Orange_%23FE6C27-blue.svg)](#)
