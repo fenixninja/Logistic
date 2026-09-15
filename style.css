@@ -345,7 +345,7 @@ h1, h2, h3, h4 {
   margin: 0 auto;
   padding: 30px 28px 60px 28px;
   display: grid;
-  grid-template-columns: 460px 32px 1fr;
+  grid-template-columns: 330px 36px 1fr;
   gap: 0;
   align-items: start;
 }
@@ -353,6 +353,14 @@ h1, h2, h3, h4 {
 .workspace-col {
   display: flex;
   flex-direction: column;
+}
+
+.col-scan {
+  max-width: 330px;
+}
+
+.col-packages {
+  padding-left: 14px;
 }
 
 .col-header {
@@ -1201,10 +1209,12 @@ h1, h2, h3, h4 {
   }
 
   .col-scan {
+    max-width: 100%;
     order: 2; /* Sección SCAN abajo en móvil */
   }
 
   .col-packages {
+    padding-left: 0;
     order: 1; /* Sección Paquetes arriba en móvil */
   }
 
