@@ -72,6 +72,8 @@ body {
   line-height: 1.5;
   overflow-x: hidden;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Typography Utilities */
@@ -341,9 +343,11 @@ h1, h2, h3, h4 {
    DISPOSICIÓN PRINCIPAL DEL WORKSPACE (BODY)
    ======================================================== */
 .workspace-layout {
+  flex: 1 0 auto;
   max-width: 1600px;
+  width: 100%;
   margin: 0 auto;
-  padding: 30px 28px 60px 28px;
+  padding: 30px 28px 40px 28px;
   display: grid;
   grid-template-columns: 330px 36px 1fr;
   gap: 0;
@@ -1170,11 +1174,15 @@ h1, h2, h3, h4 {
    PIE DE PÁGINA (FOOTER)
    ======================================================== */
 .app-footer {
+  margin-top: auto;
+  position: relative;
+  z-index: 10;
+  width: 100%;
   border-top: 1px solid var(--border-glass);
-  background: rgba(7, 13, 28, 0.9);
-  backdrop-filter: blur(14px);
+  background: rgba(7, 13, 28, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   padding: 18px 28px;
-  margin-top: 40px;
 }
 
 .footer-container {
