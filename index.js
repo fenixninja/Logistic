@@ -522,24 +522,32 @@ function initBackgroundVideoLoop() {
 
   let currentVideoIndex = 0;
 
+  // Desactivar el atributo loop nativo para permitir que se dispare el evento 'ended'
+  videoPlayer.removeAttribute('loop');
+  videoPlayer.loop = false;
   videoPlayer.muted = true;
   videoPlayer.playsInline = true;
 
-  // Cuando termina un vídeo, pasa al siguiente de forma continua
-  videoPlayer.addEventListener('ended', () => {
+  function playNextVideo() {
     currentVideoIndex = (currentVideoIndex + 1) % PLAYLIST.length;
     videoPlayer.src = PLAYLIST[currentVideoIndex];
-    videoPlayer.play().catch(e => console.log("Autoplay loop wait:", e));
+    videoPlayer.load();
+    videoPlayer.play().catch(e => console.log("Video transition autoplay wait:", e));
+  }
+
+  // Cuando termina el vídeo actual, pasar al siguiente de la lista
+  videoPlayer.addEventListener('ended', playNextVideo);
+
+  // Si ocurre un error con algún archivo, saltar de inmediato al siguiente
+  videoPlayer.addEventListener('error', (e) => {
+    console.warn("Error cargando vídeo de fondo, pasando al siguiente:", e);
+    playNextVideo();
   });
 
-  // Si ocurre algún fallo de carga, avanzar automáticamente al siguiente
-  videoPlayer.addEventListener('error', () => {
-    currentVideoIndex = (currentVideoIndex + 1) % PLAYLIST.length;
-    videoPlayer.src = PLAYLIST[currentVideoIndex];
-    videoPlayer.play().catch(() => {});
-  });
+  // Exponer control global para pruebas
+  window.nextBackgroundVideo = playNextVideo;
 
-  // Asegurar que inicia la reproducción
+  // Iniciar reproducción
   videoPlayer.play().catch(() => {});
 }
 
