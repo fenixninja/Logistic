@@ -515,7 +515,9 @@ function initBackgroundVideoLoop() {
   const PLAYLIST = [
     "video/Delivery_man_walking_city_street_20260915195750.mp4",
     "video/Blue_delivery_van_driving_street_20260915200136.mp4",
-    "video/Scooter_driving_down_city_street_20260915210220.mp4"
+    "video/Scooter_driving_down_city_street_20260915210220.mp4",
+    "video/Delivery_person_riding_electric_\u2026_20260915212306.mp4",
+    "video/Cargo_airplane_taxiing_on_runway_20260915222350.mp4"
   ];
 
   let currentVideoIndex = 0;
@@ -528,6 +530,13 @@ function initBackgroundVideoLoop() {
     currentVideoIndex = (currentVideoIndex + 1) % PLAYLIST.length;
     videoPlayer.src = PLAYLIST[currentVideoIndex];
     videoPlayer.play().catch(e => console.log("Autoplay loop wait:", e));
+  });
+
+  // Si ocurre algún fallo de carga, avanzar automáticamente al siguiente
+  videoPlayer.addEventListener('error', () => {
+    currentVideoIndex = (currentVideoIndex + 1) % PLAYLIST.length;
+    videoPlayer.src = PLAYLIST[currentVideoIndex];
+    videoPlayer.play().catch(() => {});
   });
 
   // Asegurar que inicia la reproducción

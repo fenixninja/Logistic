@@ -45,10 +45,12 @@ La aplicación aplica estrictamente las directrices del manual de marca ([style/
 │   ├── FNX_logo.jpeg   # Imagen interior para la pantalla del iPhone
 │   ├── Color_brand.jpeg# Referencia visual de la paleta
 │   └── patinete.jpeg   # Referencia de reparto en scooter
-└── video/              # Grabaciones de reparto urbano en bucle continuo
+└── video/              # Grabaciones de reparto y transporte logístico en bucle continuo
     ├── Delivery_man_walking_city_street_20260915195750.mp4
     ├── Blue_delivery_van_driving_street_20260915200136.mp4
-    └── Scooter_driving_down_city_street_20260915210220.mp4
+    ├── Scooter_driving_down_city_street_20260915210220.mp4
+    ├── Delivery_person_riding_electric_…_20260915212306.mp4
+    └── Cargo_airplane_taxiing_on_runway_20260915222350.mp4
 ```
 
 ---
