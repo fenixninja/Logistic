@@ -517,7 +517,8 @@ function initBackgroundVideoLoop() {
     "video/Blue_delivery_van_driving_street_20260915200136.mp4",
     "video/Scooter_driving_down_city_street_20260915210220.mp4",
     "video/Delivery_person_riding_electric_\u2026_20260915212306.mp4",
-    "video/Cargo_airplane_taxiing_on_runway_20260915222350.mp4"
+    "video/Cargo_airplane_taxiing_on_runway_20260915222350.mp4",
+    "video/Container_ship_sailing_ocean_20260915223125.mp4"
   ];
 
   let currentVideoIndex = 0;
