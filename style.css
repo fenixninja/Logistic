@@ -276,7 +276,7 @@ h1, h2, h3, h4 {
 }
 
 .system-badge {
-  display: flex;
+  display: none !important; /* Ocultado temporalmente a petición */
   align-items: center;
   gap: 8px;
   font-family: var(--font-mono);
@@ -337,6 +337,10 @@ h1, h2, h3, h4 {
 
 .btn-full {
   width: 100%;
+}
+
+#btn-sync-route {
+  display: none !important; /* Ocultado temporalmente a petición */
 }
 
 /* ========================================================
